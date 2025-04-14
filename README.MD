@@ -17,7 +17,8 @@ Create production-ready React + TypeScript applications with:
 - 🧹 ESLint + Prettier
 
 - ⚡ Vite... and much more — all set up in seconds with a single command.
----
+
+<br>
 
 ## 🚀 How to use
 
@@ -28,7 +29,8 @@ npx rnt-app your-project-name
 
 ```
 Replace "your-project-name" with the desired name. If no name is provided, the project will be created with the name "new-app".
----
+
+<br>
 
 ## 🧰 What is automatically configured?
 
@@ -51,7 +53,8 @@ Replace "your-project-name" with the desired name. If no name is provided, the p
 - 📦 Configuration for deployment with Vercel
 
 - 🧼 Project starts with lint and format applied
----
+
+<br>
 
 ## 🗂️ Folder Structure
 The basic project structure created automatically:
@@ -72,8 +75,9 @@ The basic project structure created automatically:
 ├── App.tsx           # Main component
 ├── main.tsx          # Application entry point
 └── vite-env.d.ts     # Vite type definitions
-
  ```
+
+<br>
 
 ## ✅ After execution
 - You'll have a project 100% ready for coding, with:
@@ -85,7 +89,8 @@ The basic project structure created automatically:
 - ESLint and Prettier applied automatically
 
 -  Scripts ready for dev, build, lint, test, and deploy
----
+
+<br>
 
 ## 📚 References used
 
@@ -100,12 +105,13 @@ The basic project structure created automatically:
 - [🧪 Cypress](https://www.cypress.io/)
 - [📚 Storybook](https://storybook.js.org/)
 
----
+<br>
 
 ## 👤 Author
-Developed with 💙 by Renato Minoita
----
+Made with 💙 by [Renato Minoita](https://www.linkedin.com/in/renato-luiz-0b072b247/)
+Check out more on [GitHub](https://github.com/RNT13)
+
+<br>
 
 ## 🧠 License
 This project is licensed under the MIT license.
----
