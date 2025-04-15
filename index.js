@@ -41,7 +41,7 @@ const folders = [
   "src/pages",
   "src/models",
   "src/utils/enums",
-  "src/utils/tests/preloader.tsx",
+  "src/utils/tests/",
   "src/containers",
   "src/redux",
   "src/redux/store.ts",
