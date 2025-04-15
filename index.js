@@ -44,7 +44,7 @@ const folders = [
   "src/utils/tests/",
   "src/containers",
   "src/redux",
-  "src/redux/store.ts",
+  "src/redux",
   "src/redux/slices",
   "src/i18n.ts",
   ".vscode"
