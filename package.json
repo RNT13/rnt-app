@@ -1,8 +1,8 @@
 {
   "name": "rnt-app",
-  "version": "1.2.9",
+  "version": "1.3.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,5 +18,8 @@
     "@types/node": "^22.14.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
+  },
+  "exports": {
+    ".": "./dist/index.js"
   }
 }
