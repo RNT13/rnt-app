@@ -1,10 +1,7 @@
 #!/usr/bin/env node
 
-
-import runSetup from './setup.js';
-import runOptions from './options.js';
-
-
+import runOptions from '../src/options';
+import runSetup from '../src/setup';
 
 (async () => {
   await runSetup();
