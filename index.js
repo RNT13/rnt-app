@@ -494,8 +494,7 @@ async function runOptions() {
     export default i18n
     `);
 
-    fs.mkdirSync('src/redux/slice', { recursive: true });
-    fs.writeFileSync('src/redux/slice/languageSlice.ts', `
+    fs.writeFileSync('src/redux/slices/languageSlice.ts', `
     import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
     interface LanguageState {
