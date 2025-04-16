@@ -35,7 +35,7 @@ execCommand(
 console.log("📂 Criando estrutura de pastas...");
 const folders = [
   "src/style",
-  "src/__tests__/test.test.tsx",
+  "src/__tests__",
   "src/components",
   "src/hooks",
   "src/pages",
@@ -44,9 +44,7 @@ const folders = [
   "src/utils/tests/",
   "src/containers",
   "src/redux",
-  "src/redux",
   "src/redux/slices",
-  "src/i18n.ts",
   ".vscode"
 ];
 
@@ -132,6 +130,59 @@ export const theme = {
     verde: '#008000',
     verde2: '#44BD32'
   }
+
+  export const darkTheme = {
+  colors: {
+    primaryColor: '#13161b',
+    secondaryColor: '#1c1f25',
+    background: '#2F2F2F',
+    inputColor: '#0d0e12',
+    white: '#121212',
+    blue: '#0d6efd',
+    blue2: '#0000FF',
+    red: '#FF3347',
+    green: '#28a745',
+    orange: '#ff4500',
+    yellow: '#fffF00',
+    shadow: '#000',
+    grey: '#a1a1a1',
+    textColor: '#f1f1f1',
+    neon: {
+      pink1: '#FF1493',
+      pink2: '#FF00FF',
+      green1: '#39FF14',
+      green2: '#00FF7F',
+      blue1: '#00BFFF',
+      blue2: '#00FFFF'
+    }
+  }
+
+  export const lightTheme = {
+  colors: {
+    primaryColor: '#666666',
+    secondaryColor: '#a1a1a1',
+    background: '#808080',
+    inputColor: '#f1f1f1',
+    white: '#ffffff',
+    blue: '#3a86ff',
+    blue2: '#0000FF',
+    red: '#FF0000',
+    green: '#34d399',
+    orange: '#ff4500',
+    yellow: '#ffff00',
+    shadow: '#000',
+    grey: '#a1a1a1',
+    textColor: '#13161b',
+    neon: {
+      pink1: '#FF1493',
+      pink2: '#FF00FF',
+      green1: '#39FF14',
+      green2: '#00FF7F',
+      blue1: '#00FFFF',
+      blue2: '#00BFFF'
+    }
+  }
+}
 };`);
 
 // Global styles
@@ -228,7 +279,6 @@ export default [
     }
   }
 ]
-
 `);
 
 //tscongig.json
@@ -328,16 +378,118 @@ fs.writeFileSync("src/i18n.ts", `
   resources: {
     en: {
       translation: {
-        welcome: "Welcome",
-        tasks: "Tasks",
-        // ...outros textos
+        home: 'Home',
+        tasks: 'Tasks',
+        editing: 'Editing...',
+        name: 'Name',
+        email: 'Email',
+        phone: 'Phone',
+        save: 'Save',
+        cancel: 'Cancel',
+        editContact: 'Edit contact',
+        editTask: 'Edit task',
+        remove: 'Remove',
+        login: 'Login',
+        logout: 'Logout',
+        password: 'Password',
+        enter: 'Enter',
+        hide: 'Hide',
+        show: 'Show',
+        hidePassword: 'Hide password',
+        showPassword: 'Show password',
+        calendar: 'Calendar',
+        contacts: 'Contacts',
+        products: 'Products',
+        profile: 'Profile',
+        requests: 'Requests',
+        newContact: 'New Contact',
+        newTask: 'New Task',
+        addToCart: 'Add to Cart',
+        pending: 'Pending',
+        completed: 'Completed',
+        urgent: 'Urgent',
+        important: 'Important',
+        normal: 'Normal',
+        friend: 'Friend',
+        known: 'Known',
+        unknown: 'Unknown',
+        search: 'Search',
+        return: 'Return',
+        all: 'All',
+        markedAs: 'marked as',
+        task: 'Task',
+        contact: 'Contact',
+        description: 'Description',
+        fullName: 'Full Name',
+        contactMarkedAsAll: 'contact(s) marked as: All',
+        contactMarketAs: 'contact(s) marked as:',
+        taskMarkedAsAll: 'task(s) marked as: All',
+        taskMarketAs: 'task(s) marked as:',
+        title: 'Title',
+        fillAllFilds: 'Please fill in all required fields.',
+        test: 'Test',
+        click: 'Click Here',
+        cart: 'Cart',
+        cartEmpty: 'Your cart is empty',
+        cartTotal: 'Total'
       }
     },
     pt: {
       translation: {
-        welcome: "Bem-vindo",
-        tasks: "Tarefas",
-        // ...outros textos
+        home: 'Início',
+        tasks: 'Tarefas',
+        editing: 'Editando...',
+        name: 'Nome',
+        email: 'Email',
+        phone: 'Telefone',
+        save: 'Salvar',
+        cancel: 'Cancelar',
+        editContact: 'Editar contato',
+        editTask: 'Editar tarefa',
+        remove: 'Remover',
+        login: 'Conectar',
+        logout: 'Desconectar',
+        password: 'Senha',
+        enter: 'Entrar',
+        hide: 'Ocultar',
+        show: 'Mostrar',
+        hidePassword: 'Ocultar senha',
+        showPassword: 'Mostrar senha',
+        calendar: 'Calendário',
+        contacts: 'Contatos',
+        products: 'Produtos',
+        profile: 'Perfil',
+        requests: 'Solicitações',
+        newContact: 'Novo Contato',
+        newTask: 'Nova Tarefa',
+        addToCart: 'Adicionar ao Carrinho',
+        pending: 'Pendente',
+        completed: 'Concluído',
+        urgent: 'Urgente',
+        important: 'Importante',
+        normal: 'Normal',
+        friend: 'Amigo',
+        known: 'Conhecido',
+        unknown: 'Desconhecido',
+        search: 'Pesquisar',
+        return: 'Voltar',
+        all: 'Todos(as)',
+        markedAs: 'marcado como',
+        task: 'Tarefa',
+        contact: 'Contato',
+        description: 'Descrição',
+        fullName: 'Nome Completo',
+        contactMarkedAsAll: 'contato(s) marcado(s) como: Todos',
+        contactMarketAs: 'contato(s) marcado(s) como:',
+        taskMarkedAsAll: 'tarefa(s) marcada(s) como: Todas',
+        taskMarketAs: 'tarefa(s) marcada(s) como:',
+        title: 'Título',
+        fillAllFilds: 'Por favor, preencha Todos os campos obrigatórios.',
+        test: 'Teste',
+        click: 'Clique Aqui',
+        cart: 'Carrinho',
+        cartEmpty: 'Seu carrinho está vazio',
+        cartTotal: 'Total'
       }
     }
   },
@@ -348,8 +500,7 @@ fs.writeFileSync("src/i18n.ts", `
   }
 })
 
-export default i18n
-
+  export default i18n
 `);
 
 // Aplicando ESLint e Prettier
