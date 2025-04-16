@@ -55,15 +55,15 @@ console.log("📄 Criando arquivos de configuração...");
 
 // Jest config
 fs.writeFileSync("jest.config.ts", `
-export default {
-  preset: "ts-jest",
-  testEnvironment: "jsdom",
+  export default {
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
   transform: {
-    "^.+\\.tsx?$": "ts-jest",
+    '^.+\\.tsx?$': 'ts-jest'
   },
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
-  setupFilesAfterEnv: ["<rootDir>/setupTests.ts"],
-};
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  setupFilesAfterEnv: ['<rootDir>/setupTests.ts']
+}
 `);
 
 // Vercel config
@@ -106,7 +106,7 @@ insert_final_newline = true
 
 // Theme
 fs.writeFileSync("src/style/theme.ts", `
-export const theme = {
+  export const theme = {
   breakpoints: {
     sm: '480px',
     md: '768px',
@@ -130,8 +130,9 @@ export const theme = {
     verde: '#008000',
     verde2: '#44BD32'
   }
+}
 
-  export const darkTheme = {
+export const darkTheme = {
   colors: {
     primaryColor: '#13161b',
     secondaryColor: '#1c1f25',
@@ -156,8 +157,9 @@ export const theme = {
       blue2: '#00FFFF'
     }
   }
+}
 
-  export const lightTheme = {
+export const lightTheme = {
   colors: {
     primaryColor: '#666666',
     secondaryColor: '#a1a1a1',
@@ -183,7 +185,13 @@ export const theme = {
     }
   }
 }
-};`);
+
+export const themeConfig = {
+  light: lightTheme,
+  dark: darkTheme
+}
+
+`);
 
 // Global styles
 fs.writeFileSync("src/style/globalStyles.ts", `
@@ -229,16 +237,14 @@ dist-ssr
 
 // ESLint config
 fs.writeFileSync("eslint.config.js", `
-import pluginJs from '@eslint/js'
+  import pluginJs from '@eslint/js'
 import prettierPlugin from 'eslint-plugin-prettier'
 import pluginReact from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
-import pluginImport from 'eslint-plugin-import'
 import globals from 'globals'
-import tseslint from '@typescript-eslint/eslint-plugin'
-import tsParser from '@typescript-eslint/parser'
+import tseslint from 'typescript-eslint'
 
-
+/** @type {import('eslint').Linter.Config[]} */
 export default [
   { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
   { languageOptions: { globals: globals.browser } },
@@ -250,8 +256,7 @@ export default [
   {
     plugins: {
       'react-hooks': reactHooks,
-      prettier: prettierPlugin,
-      import: pluginImport
+      prettier: prettierPlugin
     },
     rules: {
       'react-hooks/rules-of-hooks': 'error',
@@ -265,11 +270,10 @@ export default [
           singleQuote: true,
           trailingComma: 'none',
           semi: false,
-          printWidth: 300,
+          printWidth: 350,
           arrowParens: 'avoid'
         }
-      ],
-      'import/no-unresolved': ['error', { caseSensitive: true }]
+      ]
     }
   },
 
@@ -279,6 +283,7 @@ export default [
     }
   }
 ]
+
 `);
 
 //tscongig.json
@@ -501,6 +506,32 @@ fs.writeFileSync("src/i18n.ts", `
 })
 
   export default i18n
+`);
+
+//languageSlice.ts
+fs.writeFileSync("src/redux/slice/languageSlice.ts", `
+  import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+interface LanguageState {
+  language: 'pt' | 'en'
+}
+
+const initialState: LanguageState = {
+  language: 'en'
+}
+
+const languageSlice = createSlice({
+  name: 'language',
+  initialState,
+  reducers: {
+    toggleLanguage: (state, action: PayloadAction<'pt' | 'en'>) => {
+      state.language = action.payload
+    }
+  }
+})
+
+export const { toggleLanguage } = languageSlice.actions
+export default languageSlice.reducer
 `);
 
 // Aplicando ESLint e Prettier
