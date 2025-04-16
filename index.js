@@ -576,25 +576,19 @@ async function runOptions() {
     }
     `);
 
-    fs.writeFileSync('src/__tests__/test.test.tsx', '');
-
     console.log('📂 arquivo setupTests.ts criado corretamente');
   }
+}
 
-  // Aplicando ESLint e Prettier
+function formatProject() {
+  console.log("🎯 Finalizando com ESLint e Prettier...");
   execCommand("npx eslint . --fix");
   execCommand("npx prettier --write ./src/");
-
   console.log("✅ ESLint e Prettier aplicados!");
   console.log("✅ Projeto configurado com sucesso!");
 }
 
-
-// Aplicando ESLint e Prettier
-execCommand("npx eslint . --fix");
-execCommand("npx prettier --write ./src/");
-
-console.log("✅ ESLint e Prettier aplicados!");
-console.log("✅ Projeto configurado com sucesso!");
-
-runOptions();
+// 👇 Chamando tudo na ordem certa
+runOptions().then(() => {
+  formatProject();
+});
