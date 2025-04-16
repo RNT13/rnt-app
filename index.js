@@ -528,7 +528,8 @@ async function runOptions() {
     execCommand('npm install jest ts-jest @testing-library/react jest-environment-jsdom cypress mochawesome');
 
     console.log('📂 Criando pastas...');
-    execCommand('mkdir src/__tests__ src/utils/tests');
+    fs.mkdirSync('src/__tests__', { recursive: true });
+    fs.mkdirSync('src/utils/tests', { recursive: true });
 
     console.log('📄 Criando arquivos...');
     fs.writeFileSync('setupTests.ts', `
