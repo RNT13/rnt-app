@@ -1,19 +1,13 @@
 {
     "compilerOptions": {
-        "target": "ES2020",
+        "outDir": "./dist",
+        "target": "ES6",
         "module": "ESNext",
         "moduleResolution": "node",
-        "outDir": "dist",
-        "rootDir": ".",
         "esModuleInterop": true,
-        "resolveJsonModule": true,
-        "forceConsistentCasingInFileNames": true,
-        "skipLibCheck": true,
         "strict": true
     },
-    "rootDir": "./src",
     "include": [
-        "bin",
-        "src"
+        "src/**/*"
     ]
 }
