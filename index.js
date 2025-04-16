@@ -353,11 +353,6 @@ function askQuestion(query) {
   );
 }
 
-// Executar comandos no terminal
-function execCommand(command) {
-  execSync(command, { stdio: 'inherit' });
-}
-
 // Função principal
 async function runOptions() {
   const installI18n = await askQuestion('Deseja instalar i18n? (y/n): ');
