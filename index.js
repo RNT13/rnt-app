@@ -3,6 +3,7 @@
 const { execSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
+const readline = require('readline');
 
 const appName = process.argv[2] || "novo-app";
 const appPath = path.join(process.cwd(), appName);
@@ -336,10 +337,6 @@ fs.writeFileSync("src/redux/store.ts", `
   export type AppStore = ReturnType<typeof configureStore>
   export type RootReducer = typeof rootReducer
 `);
-
-const fs = require('fs');
-const readline = require('readline');
-const { execSync } = require('child_process');
 
 // Função utilitária para perguntar no terminal
 function askQuestion(query) {
