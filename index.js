@@ -313,7 +313,7 @@ fs.writeFileSync("setupTests.ts", `
 `);
 
 //media.ts
-fs.writeFileSync("media.ts", `
+fs.writeFileSync("src/style/media.ts", `
   import { theme } from './theme';
 
   export const media = {
