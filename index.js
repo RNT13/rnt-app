@@ -518,6 +518,8 @@ async function runOptions() {
     export const { toggleLanguage } = languageSlice.actions
     export default languageSlice.reducer
   `);
+
+    console.log('📂 arquivo i18n.ts criado corretamente');
   }
 
   const installTests = await askQuestion('Deseja instalar a área de testes? (y/n): ');
@@ -575,7 +577,16 @@ async function runOptions() {
     `);
 
     fs.writeFileSync('src/__tests__/test.test.tsx', '');
+
+    console.log('📂 arquivo setupTests.ts criado corretamente');
   }
+
+  // Aplicando ESLint e Prettier
+  execCommand("npx eslint . --fix");
+  execCommand("npx prettier --write ./src/");
+
+  console.log("✅ ESLint e Prettier aplicados!");
+  console.log("✅ Projeto configurado com sucesso!");
 }
 
 
