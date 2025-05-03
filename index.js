@@ -24,13 +24,11 @@ execCommand(`npx create-vite@latest ${appName} --template react-ts`);
 process.chdir(appPath);
 
 // 🎯 Instalando dependências
-console.log("📦 Instalando dependências...");
-execCommand("npm install");
+console.log("📦 Instalando Dependências de produção...");
+execCommand("npm install styled-components @types/styled-components typescript react-redux @reduxjs/toolkit polished framer-motion react-router-dom react-icons redux@latest @types/react-router-dom --save");
 
-console.log("📦 Instalando pacotes adicionais...");
-execCommand(
-  "npm install eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-prettier prettier styled-components @types/styled-components typescript react-redux @reduxjs/toolkit polished framer-motion react-router-dom@latest react-slick slick-carousel ts-node @types/node jest ts-jest @testing-library/jest-dom @testing-library/react jest-environment-jsdom eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-testing-library eslint-config-prettier msw jest-axe @types/react-router-dom vite-plugin-eslint @storybook/react cypress react-docgen @types/redux@latest redux@latest i18next react-i18next @react-icons/all-files --save-dev --save-exact --legacy-peer-deps"
-);
+console.log("📦 Instalando Dependências de desenvolvimento...");
+execCommand("npm install eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-prettier prettier eslint-plugin-import eslint-plugin-jsx-a11y eslint-config-prettier vite-plugin-eslint slick-carousel react-slick --save-dev");
 
 // 🏗 Criando estrutura de pastas
 console.log("📂 Criando estrutura de pastas...");
@@ -181,22 +179,23 @@ export const themeConfig = {
 
 // Global styles
 fs.writeFileSync("src/style/globalStyles.ts", `
-  import { createGlobalStyle } from "styled-components";
+  import styled, { createGlobalStyle } from 'styled-components'
+  import { theme } from './theme'
 
   export const GlobalStyle = createGlobalStyle\`
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      list-style: none;
-    }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        list-style: none;
+      }
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: \${({ theme }) => theme.colors.primaryColor};
-      color: \${({ theme }) => theme.colors.textColor};
-      transition: background-color 0.3s, color 0.3s;
-    }
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: \${theme.colors.primaryColor};
+        color: \${theme.colors.textColor};
+        transition: background-color 0.3s, color 0.3s;
+      }
   \`;
 
   export const AppLayout = styled.div\`
@@ -786,7 +785,7 @@ async function runOptions() {
   const installTests = await askQuestion('Deseja instalar a área de testes? (y/n): ');
   if (installTests.toLowerCase() === 'y') {
     console.log('📦 Instalando dependências de teste...');
-    execCommand('npm install jest ts-jest @testing-library/react jest-environment-jsdom cypress mochawesome');
+    execCommand("npm install jest ts-jest @testing-library/jest-dom @testing-library/react jest-environment-jsdom eslint-plugin-testing-library msw jest-axe cypress --save-dev");
 
     console.log('📂 Criando pastas...');
     fs.mkdirSync('src/__tests__', { recursive: true });
@@ -849,9 +848,9 @@ function formatProject() {
   console.log("✅ ESLint e Prettier aplicados!");
   console.log("✅ Projeto configurado com sucesso!");
   // deletar arquivos main.css e App.css, independentemente de letras maiusculas ou minusculas
-  fs.rmSync('src/main.css', { force: true, recursive: true });
+  fs.rmSync('src/index.css', { force: true, recursive: true });
   fs.rmSync('src/App.css', { force: true, recursive: true });
-  console.log("✅ Arquivos main.css e App.css removidos!");
+  console.log("✅ Arquivos index.css e App.css removidos!");
 }
 
 // 👇 Chamando tudo na ordem certa
