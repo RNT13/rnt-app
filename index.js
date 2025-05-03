@@ -29,7 +29,7 @@ execCommand("npm install");
 
 console.log("📦 Instalando pacotes adicionais...");
 execCommand(
-  "npm install eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-prettier prettier styled-components @types/styled-components typescript react-redux @reduxjs/toolkit polished framer-motion react-router-dom@latest react-slick slick-carousel ts-node @types/node jest ts-jest @testing-library/jest-dom @testing-library/react jest-environment-jsdom eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-testing-library eslint-config-prettier msw jest-axe @types/react-router-dom vite-plugin-eslint @storybook/react cypress react-docgen @types/redux@latest redux@latest i18next react-i18next react-icons --save-dev --save-exact --legacy-peer-deps"
+  "npm install eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-prettier prettier styled-components @types/styled-components typescript react-redux @reduxjs/toolkit polished framer-motion react-router-dom@latest react-slick slick-carousel ts-node @types/node jest ts-jest @testing-library/jest-dom @testing-library/react jest-environment-jsdom eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-testing-library eslint-config-prettier msw jest-axe @types/react-router-dom vite-plugin-eslint @storybook/react cypress react-docgen @types/redux@latest redux@latest i18next react-i18next @react-icons/all-files --save-dev --save-exact --legacy-peer-deps"
 );
 
 // 🏗 Criando estrutura de pastas
@@ -37,11 +37,13 @@ console.log("📂 Criando estrutura de pastas...");
 const folders = [
   "src/style",
   "src/components",
-  "src/hooks",
+  "src/containers",
+  "src/containers/header",
+  "src/containers/footer",
+  "src/containers/content",
   "src/pages",
   "src/models",
   "src/utils/enums",
-  "src/containers",
   "src/redux",
   "src/redux/slices",
   ".vscode"
@@ -101,19 +103,19 @@ fs.writeFileSync("src/style/theme.ts", `
   colors: {
     primaryColor: '#011627',
     secondaryColor: '#023864',
-    amarelo: '#ffff00',
-    amarelo2: '#E1A32A',
-    azul: '#0000FF',
-    azul2: '#1E90FF',
-    branco: '#fff',
-    cinza: '#666666',
-    cinza2: '#a1a1a1',
-    laranja: '#ff4500',
-    laranja2: '#ff7f50',
-    preto: '#000',
-    vermelho: '#FF0000',
-    verde: '#008000',
-    verde2: '#44BD32'
+    textColor: '#fff',
+    yellow: '#ffff00',
+    yellow2: '#E1A32A',
+    blue: '#0000FF',
+    blue2: '#1E90FF',
+    gray: '#666666',
+    gray2: '#a1a1a1',
+    orange: '#ff4500',
+    orange2: '#ff7f50',
+    black: '#000',
+    red: '#FF0000',
+    green: '#008000',
+    green2: '#44BD32',
   }
 }
 
@@ -191,23 +193,265 @@ fs.writeFileSync("src/style/globalStyles.ts", `
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: ${({ theme }) => theme.colors.background};
-      color: ${({ theme }) => theme.colors.textColor};
+      background-color: \${({ theme }) => theme.colors.primaryColor};
+      color: \${({ theme }) => theme.colors.textColor};
       transition: background-color 0.3s, color 0.3s;
     }
+  \`;
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+  export const AppLayout = styled.div\`
+    display: grid;
+    grid-template-areas: 'header' 'content' 'footer';
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+    height: 100vh;
+  \`;
+`);
 
-    button {
-      cursor: pointer;
-      border: none;
-      background: none;
+// Content.tsx
+fs.writeFileSync("src/containers/content/Content.tsx", `
+  import { ContentContainer } from './ContentStyles'
+
+  const Content = () => {
+    return (
+      <ContentContainer>
+        <h1>Conteúdo de Exemplo</h1>
+          <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+          </ul>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet debitis quisquam labore fugit, iste aut impedit! Labore cupiditate inventore aliquam consectetur nostrum, fugit consequatur voluptatibus voluptas tempora quidem aut aspernatur.</p>
+      </ContentContainer>
+    )
+  }
+
+  export default Content
+`);
+
+// ContentStyles.ts
+fs.writeFileSync("src/containers/content/ContentStyles.ts", `
+  import { styled } from 'styled-components'
+  import { media } from '../../style/media'
+  import { theme } from '../../style/theme'
+
+  export const ContentWrapper = styled.div\`
+    grid-area: content;
+  \`;
+
+  export const ContentContainer = styled.div\`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    gap: 50px;
+    background-color: \${theme.colors.primaryColor};
+    overflow-y: auto;
+    transition:
+      background-color 0.3s,
+      color 0.3s;
+
+    \${(media.md, media.sm)} {
     }
   \`;
 `);
+
+// Footer.tsx
+fs.writeFileSync("src/containers/footer/Footer.tsx", `
+  import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa'
+  import { FooterContainer, SocialLinks } from './FooterStyles'
+
+  const getCurrentYear = () => {
+    const date = new Date()
+    return date.getFullYear()
+  }
+
+  const Footer = () => {
+    return (
+      <FooterContainer>
+        <p>&copy; {getCurrentYear()} RNT Projects. All rights reserved.</p>
+        <SocialLinks className="social-links">
+          <a href="https://link-aqui" target="_blank" rel="noopener noreferrer">
+            <FaGithub size={30} />
+          </a>
+          <a href="https://link-aqui" target="_blank" rel="noopener noreferrer">
+            <FaLinkedin size={30} />
+          </a>
+          <a href="https://link-aqui" target="_blank" rel="noopener noreferrer">
+            <FaInstagram size={30} />
+          </a>
+        </SocialLinks>
+      </FooterContainer>
+    )
+  }
+  export default Footer
+`);
+
+// FooterStyles.ts
+fs.writeFileSync("src/containers/footer/FooterStyles.ts", `
+  import { styled } from 'styled-components'
+  import { media } from '../../style/media'
+  import { theme } from '../../style/theme'
+
+  export const FooterContainer = styled.div\`
+    grid-area: footer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    gap: 50px;
+    background-color: \${theme.colors.primaryColor};
+    overflow-y: auto;
+    transition:
+      background-color 0.3s,
+      color 0.3s;
+
+    \${(media.md, media.sm)} {
+    }
+  \`;
+
+  export const SocialLinks = styled.div\`
+    display: flex;
+    gap: 10px;
+
+    a {
+      color: \${theme.colors.textColor};
+      transition: color 0.3s;
+
+      &:hover {
+        color: \${theme.colors.blue2};
+      }
+    }
+
+    \${(media.md, media.sm)} {
+    }
+  \`;
+`);
+
+// Header.tsx
+fs.writeFileSync("src/containers/header/Header.tsx", `
+  import { HeaderContainer, Logo, NavItem, NavMenu } from './HeaderStyles'
+
+  const Header = () => {
+    return (
+      <HeaderContainer>
+        <Logo src="https://placehold.co/150x50?text=Logo" alt="Logo" />
+        <NavMenu>
+          <NavItem to="/features">Features</NavItem>
+          <NavItem to="/pricing">Pricing</NavItem>
+          <NavItem to="/blog">Blog</NavItem>
+          <NavItem to="/support">Support</NavItem>
+        </NavMenu>
+      </HeaderContainer>
+    )
+  }
+
+  export default Header
+`);
+
+// HeaderStyles.ts
+fs.writeFileSync("src/containers/header/HeaderStyles.ts", `
+  import { Link } from 'react-router-dom'
+  import { styled } from 'styled-components'
+  import { theme } from '../../style/theme'
+
+  export const HeaderWrapper = styled.div\`
+    grid-area: header;
+  \`
+
+  export const HeaderContainer = styled.div\`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-image: url('/images/logo.png');
+  \`
+
+  export const Logo = styled.img\`
+    width: 100px;
+    height: auto;
+  \`
+
+  export const NavMenu = styled.nav\`
+    display: flex;
+    gap: 20px;
+  \`
+
+  export const NavItem = styled(Link)\`
+    text-decoration: none;
+    color: \${theme.colors.textColor};
+    font-weight: bold;
+    transition: color 0.3s;
+
+    &:hover {
+      color: \${theme.colors.blue2};
+    }
+  \`
+`)
+
+// router.tsx
+fs.writeFileSync("src/router.tsx", `
+  import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+  import Content from './containers/content/Content'
+  import { ContentWrapper } from './containers/content/ContentStyles'
+  import Footer from './containers/footer/Footer'
+  import { FooterWrapper } from './containers/footer/FooterStyles'
+  import Header from './containers/header/Header'
+  import { HeaderWrapper } from './containers/header/HeaderStyles'
+  import { AppLayout, GlobalStyle } from './style/globalStyles'
+
+  const Layout = () => {
+    return (
+      <>
+        <GlobalStyle />
+        <AppLayout>
+          <HeaderWrapper>
+            <Header />
+          </HeaderWrapper>
+          <ContentWrapper>
+            <Content />
+          </ContentWrapper>
+          <FooterWrapper>
+            <Footer />
+          </FooterWrapper>
+        </AppLayout>
+      </>
+    )
+  }
+
+  const AppContent = () => {
+    const router = createBrowserRouter([
+      {
+        path: '/',
+        element: <Layout />,
+        children: []
+      }
+    ])
+
+    return <RouterProvider router={router} />
+  }
+
+  export default AppContent
+`);
+
+// App.tsx
+fs.writeFileSync("src/App.tsx", `
+  import { Provider } from 'react-redux'
+  import { store } from './redux/store'
+  import AppContent from './routes'
+
+  function App() {
+    return (
+      <Provider store={store}>
+        <AppContent />
+      </Provider>
+    )
+  }
+
+  export default App
+`)
 
 // .gitignore
 fs.writeFileSync(".gitignore", `
