@@ -294,6 +294,10 @@ fs.writeFileSync("src/containers/footer/FooterStyles.ts", `
   import { media } from '../../style/media'
   import { theme } from '../../style/theme'
 
+  export const FooterWrapper = styled.div\`
+    grid-area: footer;
+  \`;
+
   export const FooterContainer = styled.div\`
     grid-area: footer;
     display: flex;
@@ -440,7 +444,7 @@ fs.writeFileSync("src/router.tsx", `
 fs.writeFileSync("src/App.tsx", `
   import { Provider } from 'react-redux'
   import { store } from './redux/store'
-  import AppContent from './routes'
+  import AppContent from './router'
 
   function App() {
     return (
@@ -452,6 +456,19 @@ fs.writeFileSync("src/App.tsx", `
 
   export default App
 `)
+
+// main.tsx
+fs.writeFileSync("src/main.tsx", `
+  import { StrictMode } from 'react'
+  import { createRoot } from 'react-dom/client'
+  import App from './App.tsx'
+
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <App />
+    </StrictMode>
+  )
+`);
 
 // .gitignore
 fs.writeFileSync(".gitignore", `
@@ -831,6 +848,10 @@ function formatProject() {
   execCommand("npx prettier --write ./src/");
   console.log("✅ ESLint e Prettier aplicados!");
   console.log("✅ Projeto configurado com sucesso!");
+  // deletar arquivos main.css e App.css, independentemente de letras maiusculas ou minusculas
+  fs.rmSync('src/main.css', { force: true, recursive: true });
+  fs.rmSync('src/App.css', { force: true, recursive: true });
+  console.log("✅ Arquivos main.css e App.css removidos!");
 }
 
 // 👇 Chamando tudo na ordem certa
