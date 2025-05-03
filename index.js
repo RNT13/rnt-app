@@ -842,15 +842,15 @@ async function runOptions() {
 }
 
 function formatProject() {
+  console.log("🎯 deletar arquivos index.css e App.css...");
+  fs.rmSync('src/index.css', { force: true, recursive: true });
+  fs.rmSync('src/App.css', { force: true, recursive: true });
+  console.log("✅ Arquivos index.css e App.css removidos!");
   console.log("🎯 Finalizando com ESLint e Prettier...");
   execCommand("npx eslint . --fix");
   execCommand("npx prettier --write ./src/");
   console.log("✅ ESLint e Prettier aplicados!");
   console.log("✅ Projeto configurado com sucesso!");
-  // deletar arquivos main.css e App.css, independentemente de letras maiusculas ou minusculas
-  fs.rmSync('src/index.css', { force: true, recursive: true });
-  fs.rmSync('src/App.css', { force: true, recursive: true });
-  console.log("✅ Arquivos index.css e App.css removidos!");
 }
 
 // 👇 Chamando tudo na ordem certa
