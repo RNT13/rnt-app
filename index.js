@@ -25,7 +25,7 @@ process.chdir(appPath);
 
 // 🎯 Instalando dependências
 console.log("📦 Instalando Dependências de produção...");
-execCommand("npm install styled-components @types/styled-components typescript react-redux @reduxjs/toolkit polished framer-motion react-router-dom react-icons redux@latest @types/react-router-dom --save");
+execCommand("npm install styled-components @types/styled-components typescript react-redux @reduxjs/toolkit polished framer-motion react-router-dom react-icons react-input-mask redux@latest @types/react-router-dom --save");
 
 console.log("📦 Instalando Dependências de desenvolvimento...");
 execCommand("npm install eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-prettier prettier eslint-plugin-import eslint-plugin-jsx-a11y eslint-config-prettier vite-plugin-eslint slick-carousel react-slick --save-dev");
@@ -471,30 +471,22 @@ fs.writeFileSync("src/main.tsx", `
 
 // .gitignore
 fs.writeFileSync(".gitignore", `
-  # Logs
-  logs
+  node_modules
+  dist
+  build
+  .env
+  .env.local
+  .env.development
+  .env.production
+  .DS_Store
   *.log
   npm-debug.log*
   yarn-debug.log*
   yarn-error.log*
-  pnpm-debug.log*
-  lerna-debug.log*
-
-  node_modules
-  dist
-  dist-ssr
-  *.local
-
-  # Editor directories and files
-  .vscode/*
-  !.vscode/extensions.json
+  coverage
   .idea
-  .DS_Store
-  *.suo
-  *.ntvs*
-  *.njsproj
-  *.sln
-  *.sw?
+  .vscode
+  *.cache
 `);
 
 // ESLint config
