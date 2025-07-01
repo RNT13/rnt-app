@@ -3,7 +3,7 @@
 const { execSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
-const readline = require('readline');
+const readline = require("readline");
 
 const appName = process.argv[2] || "novo-app";
 const appPath = path.join(process.cwd(), appName);
@@ -25,10 +25,14 @@ process.chdir(appPath);
 
 // 🎯 Instalando dependências
 console.log("📦 Instalando Dependências de produção...");
-execCommand("npm install styled-components @types/styled-components typescript react-redux @reduxjs/toolkit polished framer-motion react-router-dom react-icons imask redux@latest @types/react-router-dom --save");
+execCommand(
+  "npm install styled-components @types/styled-components typescript react-redux @reduxjs/toolkit polished framer-motion react-router-dom react-router-hash-link react-icons imask yup formik redux@latest @types/react-router-dom --save"
+);
 
 console.log("📦 Instalando Dependências de desenvolvimento...");
-execCommand("npm install eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-prettier prettier eslint-plugin-import eslint-plugin-jsx-a11y eslint-config-prettier vite-plugin-eslint slick-carousel react-slick --save-dev");
+execCommand(
+  "npm install eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-prettier prettier eslint-plugin-import eslint-plugin-jsx-a11y eslint-config-prettier @types/react-router-hash-link vite-plugin-eslint slick-carousel react-slick --save-dev"
+);
 
 // 🏗 Criando estrutura de pastas
 console.log("📂 Criando estrutura de pastas...");
@@ -44,41 +48,68 @@ const folders = [
   "src/utils/enums",
   "src/redux",
   "src/redux/slices",
-  ".vscode"
+  ".vscode",
 ];
-folders.forEach(folder => fs.mkdirSync(path.join(appPath, folder), { recursive: true }));
+folders.forEach((folder) =>
+  fs.mkdirSync(path.join(appPath, folder), { recursive: true })
+);
 
 // 📝 Criando arquivos de configuração...
 console.log("📄 Criando arquivos de configuração...");
 
 // Vercel config
-fs.writeFileSync("vercel.json", JSON.stringify({
-  "rewrites": [{ "source": "/:match*", "destination": "/index.html" }]
-}, null, 2));
+fs.writeFileSync(
+  "vercel.json",
+  JSON.stringify(
+    {
+      rewrites: [{ source: "/:match*", destination: "/index.html" }],
+    },
+    null,
+    2
+  )
+);
 
 // VSCode settings
-fs.writeFileSync(".vscode/settings.json", JSON.stringify({
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.fixAll": true
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "typescript.tsdk": "node_modules/typescript/lib"
-}, null, 2));
+fs.writeFileSync(
+  ".vscode/settings.json",
+  JSON.stringify(
+    {
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+        "source.fixAll": true,
+      },
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "[typescriptreact]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features",
+      },
+      "typescript.tsdk": "node_modules/typescript/lib",
+    },
+    null,
+    2
+  )
+);
 
 // Prettierrc settings
-fs.writeFileSync(".prettierrc", JSON.stringify({
-  "trailingComma": "none",
-  "semi": false,
-  "singleQuote": true
-}, null, 2));
+fs.writeFileSync(
+  ".prettierrc",
+  JSON.stringify(
+    {
+      trailingComma: "none",
+      semi: false,
+      singleQuote: true,
+      printWidth: 150,
+      arrowParens: "avoid",
+    },
+    null,
+    2
+  )
+);
 
 // Editorconfig settings
-fs.writeFileSync(".editorconfig", `
+fs.writeFileSync(
+  ".editorconfig",
+  `
   root = true
   [*]
   indent_style = space
@@ -87,17 +118,24 @@ fs.writeFileSync(".editorconfig", `
   charset = utf-8
   trim_trailing_whitespace = true
   insert_final_newline = true
-`);
+`
+);
 
 // Theme
-fs.writeFileSync("src/style/theme.ts", `
+fs.writeFileSync(
+  "src/style/theme.ts",
+  `
+  export const media = {
+  sm: '@media (max-width: 480px)',
+  md: '@media (max-width: 768px)',
+  lg: '@media (max-width: 1024px)'
+}
+
+export const transition = {
+  default: 'all 0.3s ease-in-out'
+}
+
   export const theme = {
-  breakpoints: {
-    sm: '480px',
-    md: '768px',
-    lg: '1024px',
-    xl: '1200px'
-  },
   colors: {
     primaryColor: '#011627',
     secondaryColor: '#023864',
@@ -175,10 +213,13 @@ export const themeConfig = {
   light: lightTheme,
   dark: darkTheme
 }
-`);
+`
+);
 
 // Global styles
-fs.writeFileSync("src/style/globalStyles.ts", `
+fs.writeFileSync(
+  "src/style/globalStyles.ts",
+  `
   import styled, { createGlobalStyle } from 'styled-components'
   import { theme } from './theme'
 
@@ -205,10 +246,13 @@ fs.writeFileSync("src/style/globalStyles.ts", `
     grid-template-columns: 1fr;
     height: 100vh;
   \`;
-`);
+`
+);
 
 // Content.tsx
-fs.writeFileSync("src/containers/content/Content.tsx", `
+fs.writeFileSync(
+  "src/containers/content/Content.tsx",
+  `
   import { ContentContainer } from './ContentStyles'
 
   const Content = () => {
@@ -226,10 +270,13 @@ fs.writeFileSync("src/containers/content/Content.tsx", `
   }
 
   export default Content
-`);
+`
+);
 
 // ContentStyles.ts
-fs.writeFileSync("src/containers/content/ContentStyles.ts", `
+fs.writeFileSync(
+  "src/containers/content/ContentStyles.ts",
+  `
   import { styled } from 'styled-components'
   import { media } from '../../style/media'
   import { theme } from '../../style/theme'
@@ -254,10 +301,13 @@ fs.writeFileSync("src/containers/content/ContentStyles.ts", `
     \${(media.md, media.sm)} {
     }
   \`;
-`);
+`
+);
 
 // Footer.tsx
-fs.writeFileSync("src/containers/footer/Footer.tsx", `
+fs.writeFileSync(
+  "src/containers/footer/Footer.tsx",
+  `
   import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa'
   import { FooterContainer, SocialLinks } from './FooterStyles'
 
@@ -285,10 +335,13 @@ fs.writeFileSync("src/containers/footer/Footer.tsx", `
     )
   }
   export default Footer
-`);
+`
+);
 
 // FooterStyles.ts
-fs.writeFileSync("src/containers/footer/FooterStyles.ts", `
+fs.writeFileSync(
+  "src/containers/footer/FooterStyles.ts",
+  `
   import { styled } from 'styled-components'
   import { media } from '../../style/media'
   import { theme } from '../../style/theme'
@@ -331,10 +384,13 @@ fs.writeFileSync("src/containers/footer/FooterStyles.ts", `
     \${(media.md, media.sm)} {
     }
   \`;
-`);
+`
+);
 
 // Header.tsx
-fs.writeFileSync("src/containers/header/Header.tsx", `
+fs.writeFileSync(
+  "src/containers/header/Header.tsx",
+  `
   import { HeaderContainer, Logo, NavItem, NavMenu } from './HeaderStyles'
 
   const Header = () => {
@@ -352,10 +408,13 @@ fs.writeFileSync("src/containers/header/Header.tsx", `
   }
 
   export default Header
-`);
+`
+);
 
 // HeaderStyles.ts
-fs.writeFileSync("src/containers/header/HeaderStyles.ts", `
+fs.writeFileSync(
+  "src/containers/header/HeaderStyles.ts",
+  `
   import { Link } from 'react-router-dom'
   import { styled } from 'styled-components'
   import { theme } from '../../style/theme'
@@ -392,10 +451,13 @@ fs.writeFileSync("src/containers/header/HeaderStyles.ts", `
       color: \${theme.colors.blue2};
     }
   \`
-`)
+`
+);
 
 // router.tsx
-fs.writeFileSync("src/router.tsx", `
+fs.writeFileSync(
+  "src/router.tsx",
+  `
   import { createBrowserRouter, RouterProvider } from 'react-router-dom'
   import Content from './containers/content/Content'
   import { ContentWrapper } from './containers/content/ContentStyles'
@@ -437,10 +499,13 @@ fs.writeFileSync("src/router.tsx", `
   }
 
   export default AppContent
-`);
+`
+);
 
 // App.tsx
-fs.writeFileSync("src/App.tsx", `
+fs.writeFileSync(
+  "src/App.tsx",
+  `
   import { Provider } from 'react-redux'
   import { store } from './redux/store'
   import AppContent from './router'
@@ -454,10 +519,13 @@ fs.writeFileSync("src/App.tsx", `
   }
 
   export default App
-`)
+`
+);
 
 // main.tsx
-fs.writeFileSync("src/main.tsx", `
+fs.writeFileSync(
+  "src/main.tsx",
+  `
   import { StrictMode } from 'react'
   import { createRoot } from 'react-dom/client'
   import App from './App.tsx'
@@ -467,10 +535,13 @@ fs.writeFileSync("src/main.tsx", `
       <App />
     </StrictMode>
   )
-`);
+`
+);
 
 // .gitignore
-fs.writeFileSync(".gitignore", `
+fs.writeFileSync(
+  ".gitignore",
+  `
   node_modules
   dist
   build
@@ -487,10 +558,13 @@ fs.writeFileSync(".gitignore", `
   .idea
   .vscode
   *.cache
-`);
+`
+);
 
 // ESLint config
-fs.writeFileSync("eslint.config.js", `
+fs.writeFileSync(
+  "eslint.config.js",
+  `
   import pluginJs from '@eslint/js'
   import prettierPlugin from 'eslint-plugin-prettier'
   import pluginReact from 'eslint-plugin-react'
@@ -517,17 +591,7 @@ fs.writeFileSync("eslint.config.js", `
         'react-hooks/exhaustive-deps': 'warn',
         'react/prop-types': 'off',
         'react/react-in-jsx-scope': 'off',
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
-        'prettier/prettier': [
-          'error',
-          {
-            singleQuote: true,
-            trailingComma: 'none',
-            semi: false,
-            printWidth: 350,
-            arrowParens: 'avoid'
-          }
-        ]
+        '@typescript-eslint/explicit-module-boundary-types': 'off'
       }
     },
   
@@ -537,38 +601,36 @@ fs.writeFileSync("eslint.config.js", `
       }
     }
   ]
-`);
+`
+);
 
 //tscongig.json
-fs.writeFileSync("tsconfig.json", JSON.stringify({
-  files: [],
-  references: [
-    { path: "./tsconfig.app.json" },
-    { path: "./tsconfig.node.json" }
-  ],
-  compilerOptions: {
-    module: "CommonJS",
-    target: "ESNext",
-    jsx: "react-jsx",
-    esModuleInterop: true,
-    skipLibCheck: true
-  }
-}, null, 2));
-
-
-//media.ts
-fs.writeFileSync("src/style/media.ts", `
-  import { theme } from './theme';
-
-  export const media = {
-    sm: \`@media (max-width: \${theme.breakpoints.sm})\`,
-    md: \`@media (max-width: \${theme.breakpoints.md})\`,
-    lg: \`@media (max-width: \${theme.breakpoints.lg})\`
-  };
-`);
+fs.writeFileSync(
+  "tsconfig.json",
+  JSON.stringify(
+    {
+      files: [],
+      references: [
+        { path: "./tsconfig.app.json" },
+        { path: "./tsconfig.node.json" },
+      ],
+      compilerOptions: {
+        module: "CommonJS",
+        target: "ESNext",
+        jsx: "react-jsx",
+        esModuleInterop: true,
+        skipLibCheck: true,
+      },
+    },
+    null,
+    2
+  )
+);
 
 //store.ts
-fs.writeFileSync("src/redux/store.ts", `
+fs.writeFileSync(
+  "src/redux/store.ts",
+  `
   import { combineReducers, configureStore as toolkitConfigureStore } from '@reduxjs/toolkit'
 
   const rootReducer = combineReducers({
@@ -588,7 +650,8 @@ fs.writeFileSync("src/redux/store.ts", `
 
   export type AppStore = ReturnType<typeof configureStore>
   export type RootReducer = typeof rootReducer
-`);
+`
+);
 
 // Função utilitária para perguntar no terminal
 function askQuestion(query) {
@@ -607,13 +670,15 @@ function askQuestion(query) {
 
 // Função principal
 async function runOptions() {
-  const installI18n = await askQuestion('Deseja instalar i18n? (y/n): ');
-  if (installI18n.toLowerCase() === 'y') {
-    console.log('📦 Instalando i18n...');
-    execCommand('npm install i18next react-i18next');
+  const installI18n = await askQuestion("Deseja instalar i18n? (y/n): ");
+  if (installI18n.toLowerCase() === "y") {
+    console.log("📦 Instalando i18n...");
+    execCommand("npm install i18next react-i18next");
 
-    console.log('📂 Criando arquivo i18n.ts...');
-    fs.writeFileSync('src/i18n.ts', `
+    console.log("📂 Criando arquivo i18n.ts...");
+    fs.writeFileSync(
+      "src/i18n.ts",
+      `
     import i18n from 'i18next'
     import { initReactI18next } from 'react-i18next'
 
@@ -744,9 +809,12 @@ async function runOptions() {
     })
 
     export default i18n
-    `);
+    `
+    );
 
-    fs.writeFileSync('src/redux/slices/languageSlice.ts', `
+    fs.writeFileSync(
+      "src/redux/slices/languageSlice.ts",
+      `
     import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
     interface LanguageState {
@@ -769,29 +837,39 @@ async function runOptions() {
 
     export const { toggleLanguage } = languageSlice.actions
     export default languageSlice.reducer
-  `);
+  `
+    );
 
-    console.log('📂 arquivo i18n.ts criado corretamente');
+    console.log("📂 arquivo i18n.ts criado corretamente");
   }
 
-  const installTests = await askQuestion('Deseja instalar a área de testes? (y/n): ');
-  if (installTests.toLowerCase() === 'y') {
-    console.log('📦 Instalando dependências de teste...');
-    execCommand("npm install jest ts-jest @testing-library/jest-dom @testing-library/react jest-environment-jsdom eslint-plugin-testing-library msw jest-axe cypress --save-dev");
+  const installTests = await askQuestion(
+    "Deseja instalar a área de testes? (y/n): "
+  );
+  if (installTests.toLowerCase() === "y") {
+    console.log("📦 Instalando dependências de teste...");
+    execCommand(
+      "npm install jest ts-jest @testing-library/jest-dom @testing-library/react jest-environment-jsdom eslint-plugin-testing-library msw jest-axe cypress --save-dev"
+    );
 
-    console.log('📂 Criando pastas...');
-    fs.mkdirSync('src/__tests__', { recursive: true });
-    fs.mkdirSync('src/utils/tests', { recursive: true });
+    console.log("📂 Criando pastas...");
+    fs.mkdirSync("src/__tests__", { recursive: true });
+    fs.mkdirSync("src/utils/tests", { recursive: true });
 
-    console.log('📄 Criando arquivos...');
-    fs.writeFileSync('setupTests.ts', `
+    console.log("📄 Criando arquivos...");
+    fs.writeFileSync(
+      "setupTests.ts",
+      `
     import '@testing-library/jest-dom'
     import { TextEncoder } from 'util'
 
     global.TextEncoder = TextEncoder
-    `);
+    `
+    );
 
-    fs.writeFileSync('jest.config.ts', `
+    fs.writeFileSync(
+      "jest.config.ts",
+      `
     export default {
     preset: 'ts-jest',
     testEnvironment: 'jsdom',
@@ -801,9 +879,12 @@ async function runOptions() {
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     setupFilesAfterEnv: ['<rootDir>/setupTests.ts']
     }
-    `);
+    `
+    );
 
-    fs.writeFileSync('src/utils/tests/preloader.tsx', `
+    fs.writeFileSync(
+      "src/utils/tests/preloader.tsx",
+      `
     import { render, RenderOptions } from '@testing-library/react'
     import React, { JSX, PropsWithChildren } from 'react'
     import { Provider } from 'react-redux'
@@ -827,16 +908,17 @@ async function runOptions() {
         })
       }
     }
-    `);
+    `
+    );
 
-    console.log('📂 arquivo setupTests.ts criado corretamente');
+    console.log("📂 arquivo setupTests.ts criado corretamente");
   }
 }
 
 function formatProject() {
   console.log("🎯 deletar arquivos index.css e App.css...");
-  fs.rmSync('src/index.css', { force: true, recursive: true });
-  fs.rmSync('src/App.css', { force: true, recursive: true });
+  fs.rmSync("src/index.css", { force: true, recursive: true });
+  fs.rmSync("src/App.css", { force: true, recursive: true });
   console.log("✅ Arquivos index.css e App.css removidos!");
   console.log("🎯 Finalizando com ESLint e Prettier...");
   execCommand("npx eslint . --fix");
